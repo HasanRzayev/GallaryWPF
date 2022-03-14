@@ -7,15 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1000">
     <Window.Resources>
-        <Style TargetType="ListBox">
+        <Style TargetType="ListBox" x:Key="Large" >
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
                         <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                <WrapPanel Width="1200" Orientation="Horizontal"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                                <WrapPanel  Width="1000" Orientation="Horizontal"
+                  
                        IsItemsHost="True"/>
                             </ScrollViewer>
                         </Border>
@@ -23,11 +22,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="ListBox" x:Key="List" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <WrapPanel HorizontalAlignment="Left"  Width="100" Orientation="Vertical"
+                             
+                       IsItemsHost="True"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Window.Resources>
-    <Grid>
+
+   <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="19*"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0,0,0,10" Grid.ColumnSpan="2">
             <Menu DockPanel.Dock="Top" FontSize="14" Background="White">
@@ -46,7 +62,9 @@
                 </MenuItem>
                 <MenuItem Header="View">
                     <MenuItem Header=" Tiles"      />
-                    <MenuItem Header="Small icons" />
+                    <MenuItem Header="Extra large icons"      />
+                    <MenuItem Header="Small icons"  />
+                    <MenuItem Header="List" Name="Listvievform"  Click="Listvievform_Click" />
                     <MenuItem Header="Details"     />
                 </MenuItem>
                 <MenuItem Header="About">
@@ -55,20 +73,32 @@
                
             </Menu>
         </DockPanel>
-
-        <ListBox Grid.Row="1">
-            <ItemsControl  Name="galeryicindekiler"  >
+        <Frame Grid.Row="1"   Name="ikinci" ></Frame>
+        <ListBox Grid.Row="1" Name="qallery" Style="{StaticResource Large}">
+            <ItemsControl  Name="galeryicindekiler" ItemsSource="{Binding images}" >
 
 
                 <ItemsControl.ItemsPanel >
                     <ItemsPanelTemplate >
-                        <WrapPanel />
+                        <WrapPanel Name="wrap" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
 
                     <DataTemplate>
-                        <Image ></Image>
+
+                        <Button Width="60" Height="60" Name="Image" Click="Image_Click" Tag="{Binding source }">
+                            
+                            <StackPanel>
+                              
+                                <Image  Source="{Binding image}"></Image>
+                                <Label Content="{Binding source }" ></Label>
+            
+                            </StackPanel>
+                   
+                       
+
+                        </Button>
                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
