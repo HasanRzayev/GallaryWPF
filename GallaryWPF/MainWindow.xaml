@@ -87,12 +87,12 @@
 
                     <DataTemplate>
 
-                        <Button Width="60" Height="60" Name="Image" Click="Image_Click" Tag="{Binding source }">
+                        <Button Width="60" Height="60" Name="Image" Click="Image_Click" Tag="{Binding Source }">
                             
                             <StackPanel>
                               
-                                <Image  Source="{Binding image}"></Image>
-                                <Label Content="{Binding source }" ></Label>
+                                <Image  Source="{Binding Image}"></Image>
+                                <Label Content="{Binding Source }" ></Label>
             
                             </StackPanel>
                    

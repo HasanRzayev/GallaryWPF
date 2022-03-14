@@ -14,44 +14,75 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace GallaryWPF
 {
     /// <summary>
     /// Interaction logic for ImagePage.xaml
     /// </summary>
-    
+
     public partial class ImagePage : Page
     {
-        private string source;
+        private string adress;
 
         public string Adress
         {
-            get { return source; }
-            set { source = value; OnPropertyChanged(); }
+            get => adress;
+            set
+            {
+                adress = value;
+                OnPropertyChanged();
+            }
         }
 
-      
-        public List<Image_gallery> images { get; set; }
-        public int index { get; set; }
+
+        public List<Image_gallery> Images { get; set; }
+        public int Index { get; set; }
+
+        DispatcherTimer timer = new DispatcherTimer();
         public ImagePage()
         {
             InitializeComponent();
 
 
         }
-        public ImagePage(List<Image_gallery> images,int index)
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            // Updating the Label which displays the current second
+            if (Index + 1 > Images.Count - 1)
+                Index = 0;
+            else
+                Index += 1;
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(Images[Index].Source);
+            logo.EndInit();
+            selectimage.Source = logo;
+            Adress = Images[Index].Source;
+            // Forcing the CommandManager to raise the RequerySuggested event
+            CommandManager.InvalidateRequerySuggested();
+        }
+        public ImagePage(List<Image_gallery> images, int index)
         {
             InitializeComponent();
+            Adress = images[index].Source;
+            this.Images = images;
+            this.Index = index;
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(Images[Index].Source);
+            logo.EndInit();
+            selectimage.Source = logo;
+            Adress = Images[Index].Source;
 
-            //List<Image_gallery> images = new List<Image_gallery>();
+            timer.Tick += dispatcherTimer_Tick;
+            timer.Interval = new TimeSpan(0, 0, 1);
+       
 
-            Adress = images[index].source;
-            this.images = images;
-            this.index = index;  
             DataContext = this;
         }
-          public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -59,10 +90,51 @@ namespace GallaryWPF
         }
         private void evvelki_Click(object sender, RoutedEventArgs e)
         {
-            if (index - 1 < 0) index=images.Count-1;
-            else index -=1;
-            Adress = images[index].source;
-     
+            if (Index - 1 < 0)
+                Index = Images.Count - 1;
+            else
+                Index -= 1;
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(Images[Index].Source);
+            logo.EndInit();
+            selectimage.Source = logo;
+            Adress = Images[Index].Source;
+
+
+        }
+
+        private void sonraki_Click(object sender, RoutedEventArgs e)
+        {
+            if (Index + 1 > Images.Count-1)
+                Index = 0;
+            else
+                Index += 1;
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(Images[Index].Source);
+            logo.EndInit();
+            selectimage.Source = logo;
+            Adress = Images[Index].Source;
+
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+
+           
+
+
+        }
+
+        private void Play_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Start();
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
         }
     }
 }

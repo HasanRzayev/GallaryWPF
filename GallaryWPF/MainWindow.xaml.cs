@@ -22,13 +22,13 @@ public class Image_gallery
 {
     public Image_gallery(BitmapImage image, string source)
     {
-        this.image = image;
-        this.source = source;
+        this.Image = image;
+        this.Source = source;
     }
 
-    public BitmapImage image { get; set; }
+    public BitmapImage Image { get; set; }
 
-    public  string source { get; set; }
+    public string Source { get; set; }
 }
 namespace GallaryWPF
 {
@@ -41,8 +41,9 @@ namespace GallaryWPF
         public MainWindow()
         {
             InitializeComponent();
+
          
- 
+
             DataContext = this;
         }
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
@@ -50,11 +51,11 @@ namespace GallaryWPF
         {
 
             int count = 0;
-            string adress=null;
+            string adress = null;
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
             {
                 System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-                if (result==System.Windows.Forms.DialogResult.OK) adress = dialog.SelectedPath;
+                if (result == System.Windows.Forms.DialogResult.OK) adress = dialog.SelectedPath;
 
             }
             if (adress != null)
@@ -75,14 +76,14 @@ namespace GallaryWPF
                     {
                         BitmapImage myBitmapImage = new BitmapImage();
 
-                      
+
                         myBitmapImage.BeginInit();
                         myBitmapImage.UriSource = new Uri($@"{files[i]}");
 
 
                         myBitmapImage.DecodePixelWidth = 200;
                         myBitmapImage.EndInit();
-                        
+
                         Image lazimli = new Image();
                         Image_gallery sadesekil = new Image_gallery(myBitmapImage, files[i]);
                         images.Add(sadesekil);
@@ -94,25 +95,25 @@ namespace GallaryWPF
                     galeryicindekiler.ItemsSource = images;
                 }
             }
-            
+
         }
 
         private void Listvievform_Click(object sender, RoutedEventArgs e)
         {
-            Style style = this.FindResource("List") as Style;
-           
-            qallery.Style= style;
+            Style style = FindResource("List") as Style;
+
+            qallery.Style = style;
         }
 
         private void Image_Click(object sender, RoutedEventArgs e)
         {
-         if(sender is Button btn)
+            if (sender is Button btn)
             {
                 qallery.Visibility = Visibility.Hidden;
                 ikinci.Width = 1000;
                 ikinci.Height = 800;
-                ImagePage imagepage=new ImagePage(images, images.IndexOf(images.FindAll(n => n.source == btn.Tag.ToString()).ToList()[0]));
-      
+                ImagePage imagepage = new ImagePage(images, images.IndexOf(images.FindAll(n => n.Source == btn.Tag.ToString()).ToList()[0]));
+
                 ikinci.Navigate(imagepage);
             }
 
