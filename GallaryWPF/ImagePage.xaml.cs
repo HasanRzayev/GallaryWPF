@@ -24,6 +24,8 @@ namespace GallaryWPF
 
     public partial class ImagePage : Page
     {
+       
+
         private string adress;
 
         public string Adress
@@ -63,6 +65,7 @@ namespace GallaryWPF
             // Forcing the CommandManager to raise the RequerySuggested event
             CommandManager.InvalidateRequerySuggested();
         }
+
         public ImagePage(List<Image_gallery> images, int index)
         {
             InitializeComponent();
@@ -82,6 +85,7 @@ namespace GallaryWPF
 
             DataContext = this;
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -116,13 +120,19 @@ namespace GallaryWPF
             logo.EndInit();
             selectimage.Source = logo;
             Adress = Images[Index].Source;
-
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
 
-           
+            if (this.NavigationService.CanGoBack)
+            {
+                this.NavigationService.GoBack();
+            }
+            else
+            {
+                MessageBox.Show("No entries in back navigation history.");
+            }
 
 
         }

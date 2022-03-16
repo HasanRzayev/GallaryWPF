@@ -26,7 +26,7 @@
             <materialDesign:PackIcon Kind="ArrowLeftBoldBoxOutline" />
         </Button>
         <Label Grid.Row="1" HorizontalAlignment="Center" >
-            <Image  x:Name="selectimage"></Image>
+            <Image Name="selectimage"></Image>
         </Label>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
