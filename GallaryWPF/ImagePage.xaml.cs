@@ -24,7 +24,7 @@ namespace GallaryWPF
 
     public partial class ImagePage : Page
     {
-       
+        public Frame ikinci { get; set; }
 
         private string adress;
 
@@ -66,7 +66,7 @@ namespace GallaryWPF
             CommandManager.InvalidateRequerySuggested();
         }
 
-        public ImagePage(List<Image_gallery> images, int index)
+        public ImagePage(List<Image_gallery> images, int index ,Frame ikinci)
         {
             InitializeComponent();
             Adress = images[index].Source;
@@ -81,8 +81,8 @@ namespace GallaryWPF
 
             timer.Tick += dispatcherTimer_Tick;
             timer.Interval = new TimeSpan(0, 0, 1);
-       
 
+            this.ikinci = ikinci;
             DataContext = this;
         }
 
@@ -125,15 +125,7 @@ namespace GallaryWPF
         private void Back_Click(object sender, RoutedEventArgs e)
         {
 
-            if (this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            }
-            else
-            {
-                MessageBox.Show("No entries in back navigation history.");
-            }
-
+            ikinci.Visibility = Visibility.Hidden;
 
         }
 

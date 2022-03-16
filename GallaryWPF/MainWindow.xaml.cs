@@ -119,7 +119,7 @@ namespace GallaryWPF
                 qallery.Visibility = Visibility.Hidden;
                 ikinci.Width = 1000;
                 ikinci.Height = 800;
-                ImagePage imagepage = new ImagePage(images, images.IndexOf(images.FindAll(n => n.Source == btn.Tag.ToString()).ToList()[0]));
+                ImagePage imagepage = new ImagePage(images, images.IndexOf(images.FindAll(n => n.Source == btn.Tag.ToString()).ToList()[0]),ikinci);
 
                 ikinci.Navigate(imagepage);
             }
@@ -178,6 +178,29 @@ namespace GallaryWPF
         private void Saveas_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void smallvievform_Click(object sender, RoutedEventArgs e)
+        {
+
+            Style style = FindResource("Small") as Style;
+
+            qallery.Style = style;
+        }
+
+        private void Extravievform_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Style style = FindResource("Extra large") as Style;
+
+            qallery.Style = style;
+        }
+
+        private void Largevievform_Click(object sender, RoutedEventArgs e)
+        {
+            Style style = FindResource("Large") as Style;
+
+            qallery.Style = style;
         }
     }
 }
