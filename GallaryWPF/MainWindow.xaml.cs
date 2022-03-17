@@ -17,6 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 public class Image_gallery
 {
@@ -39,17 +42,23 @@ namespace GallaryWPF
     {
         NavigationService service;
 
+        public ObservableCollection<Image_gallery> images { get; set; }
 
-        List<Image_gallery> images = new List<Image_gallery>();
+        int savemaybe = 0;
         public MainWindow()
         {
             InitializeComponent();
             service = ikinci.NavigationService;
             service.Navigate("MainWindow.xaml.cs", UriKind.Relative);
-   
-         
+            images = new ObservableCollection<Image_gallery>();         
 
             DataContext = this;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
         private void AddFile_Click(object sender, RoutedEventArgs e)
@@ -99,8 +108,9 @@ namespace GallaryWPF
 
                     galeryicindekiler.ItemsSource = images;
                 }
+                savemaybe += 1;
             }
-
+       
         }
 
         private void Listvievform_Click(object sender, RoutedEventArgs e)
@@ -119,7 +129,8 @@ namespace GallaryWPF
                 qallery.Visibility = Visibility.Hidden;
                 ikinci.Width = 1000;
                 ikinci.Height = 800;
-                ImagePage imagepage = new ImagePage(images, images.IndexOf(images.FindAll(n => n.Source == btn.Tag.ToString()).ToList()[0]),ikinci);
+
+                ImagePage imagepage = new ImagePage(images, images.IndexOf(images.First(n => n.Source == btn.Tag.ToString())),ikinci);
 
                 ikinci.Navigate(imagepage);
             }
@@ -148,6 +159,7 @@ namespace GallaryWPF
                 Image lazimli = new Image();
                 Image_gallery sadesekil = new Image_gallery(myBitmapImage, new Uri(op.FileName).ToString());
                 images.Add(sadesekil);
+                savemaybe += 1;
             }
       
         }
@@ -180,27 +192,31 @@ namespace GallaryWPF
 
         }
 
-        private void smallvievform_Click(object sender, RoutedEventArgs e)
+        private void Tilesvievform_Click(object sender, RoutedEventArgs e)
         {
-
-            Style style = FindResource("Small") as Style;
+            Style style = FindResource("Tiles") as Style;
 
             qallery.Style = style;
         }
 
-        private void Extravievform_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
+          
+            if(savemaybe != 0)
+            {
+                if (MessageBox.Show( "Do you want to save changes ?","Close", MessageBoxButton.YesNo) == MessageBoxResult.No){
+
+                    Application.Current.Shutdown(110);
+                }
+                else
+                {
+
+                }
+            }
+          
             
-            Style style = FindResource("Extra large") as Style;
+          
 
-            qallery.Style = style;
-        }
-
-        private void Largevievform_Click(object sender, RoutedEventArgs e)
-        {
-            Style style = FindResource("Large") as Style;
-
-            qallery.Style = style;
         }
     }
 }

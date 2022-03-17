@@ -5,21 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GallaryWPF"
         mc:Ignorable="d"
+          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+     TextOptions.TextRenderingMode="Auto"
         Title="MainWindow" Height="900" Width="1000">
     <Window.Resources>
-        <Style TargetType="ListBox" x:Key="Large" >
+        
+        <Style TargetType="ListBox" x:Key="Tiles" >
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
                         <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto">
                                 <WrapPanel  Width="1000" Orientation="Horizontal"
-                       IsItemsHost="True"/>
+                  
+                       IsItemsHost="True">
+                                  
+                                </WrapPanel>
                             </ScrollViewer>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+    
         </Style>
         <Style TargetType="ListBox" x:Key="List" >
             <Setter Property="Template">
@@ -28,6 +39,7 @@
                         <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <WrapPanel HorizontalAlignment="Left"  Width="100" Orientation="Vertical"
+                             
                        IsItemsHost="True"/>
                             </ScrollViewer>
                         </Border>
@@ -35,36 +47,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-       
-        <Style TargetType="ListBox" x:Key="Extra large" >
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBox">
-                        <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                <WrapPanel  Width="1000" Orientation="Horizontal"
-                       IsItemsHost="True"></WrapPanel>
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            
-        </Style>
-        <Style TargetType="ListBox" x:Key="Small" >
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBox">
-                        <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
-                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                                <WrapPanel  Width="1000" Orientation="Horizontal"
-                       IsItemsHost="True"/>
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+
     </Window.Resources>
 
    <Grid>
@@ -73,36 +56,68 @@
             <RowDefinition Height="19*"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0,0,0,10" Grid.ColumnSpan="2">
-            <Menu DockPanel.Dock="Top" FontSize="14" Background="White">
-                <MenuItem Header="File" >
-                    <MenuItem Header="New"    />
-                    <MenuItem Header="Open" Click="Open_Click"    />
-                    <MenuItem Header="Save" Name="Save" Click="Save_Click"   />
-                    <MenuItem Header="Save as" Name="Saveas" Click="Saveas_Click"/>
-                    <MenuItem Header="Exit"   />
-          
-                </MenuItem>
-                <MenuItem Header="Edit" >
-                    <MenuItem Header="Add file"  Click="AddFile_Click"    />
-                   
-                  
-                </MenuItem>
-                <MenuItem Header="View">
-                    <MenuItem Header=" Tiles"      />
-                    <MenuItem Header="Extra large icons"  Name="Extravievform"  Click="Extravievform_Click"   />
-                    <MenuItem Header="Large icons"  Name="Largevievform"  Click="Largevievform_Click"   />
-                    <MenuItem Header="Small icons" Name="smallvievform"  Click= "smallvievform_Click"  />
-                    <MenuItem Header="List" Name="Listvievform"  Click="Listvievform_Click" />
-                    <MenuItem Header="Details"     />
-                </MenuItem>
-                <MenuItem Header="About">
-                   
-                </MenuItem>
-               
-            </Menu>
+            <materialDesign:Card
+  Height="80">
+                <Menu DockPanel.Dock="Top" FontSize="14" Background="White">
+                    <MenuItem Header="File" >
+                        <MenuItem Header="New"     >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Newspaper" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>
+                        <MenuItem Header="Open" Click="Open_Click"             >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="OpenInNew" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>
+                        <MenuItem Header="Save" Name="Save" Click="Save_Click"  >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentSave" />
+                            </MenuItem.Icon>
+                       
+                        </MenuItem>
+                        <MenuItem Header="Save as" Name="Saveas" Click="Saveas_Click" >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentSave" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>
+                        <MenuItem Header="Exit"  Name="Exit" Click="Exit_Click"  >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Power" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>
+
+                    </MenuItem>
+                    <MenuItem Header="Edit" >
+                        <MenuItem Header="Add file"  Click="AddFile_Click"   >
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="FolderOpen" />
+                            </MenuItem.Icon>
+
+                        </MenuItem>  />
+
+                    </MenuItem>
+                    <MenuItem Header="View">
+                        <MenuItem Header=" Tiles" Name="Tilesvievform"  Click="Tilesvievform_Click"        />
+
+                        <MenuItem Header="List" Name="Listvievform"  Click="Listvievform_Click" />
+
+                    </MenuItem>
+                    <MenuItem Header="About">
+
+                    </MenuItem>
+
+                </Menu>
+
+            </materialDesign:Card>
+            
         </DockPanel>
         <Frame Grid.Row="1"   Name="ikinci" ></Frame>
-        <ListBox Grid.Row="1" Name="qallery" Style="{StaticResource Large}">
+        <ListBox Grid.Row="1" Name="qallery" Style="{StaticResource Tiles}">
             <ItemsControl  Name="galeryicindekiler" ItemsSource="{Binding images}" >
 
 
@@ -115,7 +130,7 @@
 
                     <DataTemplate>
 
-                        <Button Width="60" Height="60" Name="picture" Click="Image_Click" Tag="{Binding Source }">
+                        <Button Width="60" Height="60" Name="Image" Click="Image_Click" Tag="{Binding Source }">
                             
                             <StackPanel>
                               

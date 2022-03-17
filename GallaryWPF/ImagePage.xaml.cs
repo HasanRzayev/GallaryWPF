@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -38,8 +39,8 @@ namespace GallaryWPF
             }
         }
 
-
-        public List<Image_gallery> Images { get; set; }
+        public ObservableCollection<Image_gallery> Images { get; set; }
+      
         public int Index { get; set; }
 
         DispatcherTimer timer = new DispatcherTimer();
@@ -66,7 +67,7 @@ namespace GallaryWPF
             CommandManager.InvalidateRequerySuggested();
         }
 
-        public ImagePage(List<Image_gallery> images, int index ,Frame ikinci)
+        public ImagePage(ObservableCollection<Image_gallery> images, int index ,Frame ikinci)
         {
             InitializeComponent();
             Adress = images[index].Source;
