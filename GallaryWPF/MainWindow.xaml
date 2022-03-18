@@ -98,7 +98,7 @@
                                 <materialDesign:PackIcon Kind="FolderOpen" />
                             </MenuItem.Icon>
 
-                        </MenuItem>  />
+                        </MenuItem>  
 
                     </MenuItem>
                     <MenuItem Header="View">
