@@ -52,7 +52,7 @@ namespace GallaryWPF
         }
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            // Updating the Label which displays the current second
+            
             if (Index + 1 > Images.Count - 1)
                 Index = 0;
             else
@@ -63,7 +63,7 @@ namespace GallaryWPF
             logo.EndInit();
             selectimage.Source = logo;
             Adress = Images[Index].Source;
-            // Forcing the CommandManager to raise the RequerySuggested event
+
             CommandManager.InvalidateRequerySuggested();
         }
 
